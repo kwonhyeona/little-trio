@@ -23,20 +23,16 @@ public class BeaconRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_beacon_register);
         ButterKnife.bind(this);
         clickEvent();
+    }
+
+    void clickEvent() {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BeaconRegisterActivity.this , StationFindActivity.class);
+                Intent intent = new Intent(BeaconRegisterActivity.this, StationFindActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-
-    }
-
-    void clickEvent() {
-
-
-
     }
 }
