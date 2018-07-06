@@ -1,15 +1,16 @@
-package kr.or.hanium.probono.little_trio.b4showing;
+package kr.or.hanium.probono.little_trio.b4showing.StationFind;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.melnykov.fab.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import kr.or.hanium.probono.little_trio.b4showing.R;
+import kr.or.hanium.probono.little_trio.b4showing.SeatInfo.SeatInfoActivity;
 
 public class StationFindActivity extends AppCompatActivity {
 

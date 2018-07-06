@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import kr.or.hanium.probono.little_trio.b4showing.StationFind.StationFindActivity;
 
 public class BeaconRegisterActivity extends AppCompatActivity {
     @BindView(R.id.beaconregister_button_ok)
@@ -29,7 +30,7 @@ public class BeaconRegisterActivity extends AppCompatActivity {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BeaconRegisterActivity.this, StationFindActivity.class);
+                Intent intent = new Intent(getApplicationContext(), StationFindActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,4 +1,4 @@
-package kr.or.hanium.probono.little_trio.b4showing;
+package kr.or.hanium.probono.little_trio.b4showing.SeatInfo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import kr.or.hanium.probono.little_trio.b4showing.R;
 
 public class SeatInfoActivity extends AppCompatActivity {
 

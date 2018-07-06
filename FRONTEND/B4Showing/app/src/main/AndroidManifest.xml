@@ -16,9 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SeatInfoActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".StationFindActivity"></activity>
+        <activity android:name=".StationFindActivity" />
+        <activity android:name=".StationFind.StationFindActivity" />
+        <activity android:name=".SeatInfo.SeatInfoActivity"></activity>
     </application>
 
 </manifest>
