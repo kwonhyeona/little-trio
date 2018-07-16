@@ -1,5 +1,6 @@
 package kr.or.hanium.probono.littletrio.security;
 
+import kr.or.hanium.probono.littletrio.exception.NonExistentResourceException;
 import kr.or.hanium.probono.littletrio.exception.UnAuthenticationException;
 import kr.or.hanium.probono.littletrio.exception.UnAuthorizedException;
 import org.slf4j.Logger;
@@ -31,5 +32,11 @@ public class SecurityControllerAdvice {
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public void unAuthentication() {
         log.debug("UnAuthenticationException is happened!");
+    }
+
+    @ExceptionHandler(NonExistentResourceException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public void NonExistentResource() {
+        log.debug("NonExistentResourceException is happened!");
     }
 }

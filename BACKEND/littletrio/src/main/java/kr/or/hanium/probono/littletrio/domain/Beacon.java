@@ -8,14 +8,22 @@ public class Beacon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, length = 12)
-    private int deviceNumber;
+    private String deviceNumber;
     @Column(nullable = false)
-    private int state;
+    private boolean state;
 
     public Beacon() {
     }
 
-    public Beacon(Long id, int deviceNumber) {
+    public Beacon(String deviceNumber) {
+        checkLengthOfDeviceNumber(deviceNumber);
+
+        this.deviceNumber = deviceNumber;
+    }
+
+    public Beacon(Long id, String deviceNumber) {
+        checkLengthOfDeviceNumber(deviceNumber);
+
         this.id = id;
         this.deviceNumber = deviceNumber;
     }
@@ -28,19 +36,24 @@ public class Beacon {
         this.id = id;
     }
 
-    public int getDeviceNumber() {
+    public String getDeviceNumber() {
         return deviceNumber;
     }
 
-    public void setDeviceNumber(int deviceNumber) {
+    public void setDeviceNumber(String deviceNumber) {
         this.deviceNumber = deviceNumber;
     }
 
-    public int getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public Beacon setState(boolean state) {
         this.state = state;
+        return this;
+    }
+
+    private void checkLengthOfDeviceNumber(String deviceNumber) {
+        if (deviceNumber.length() != 12) throw new IllegalArgumentException("인자의 길이가 12보다 짧습니다.");
     }
 }
