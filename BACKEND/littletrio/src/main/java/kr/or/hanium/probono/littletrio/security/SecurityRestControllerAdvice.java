@@ -19,9 +19,9 @@ public class SecurityRestControllerAdvice {
     private static final Logger log = LoggerFactory.getLogger(SecurityRestControllerAdvice.class);
 
     @ExceptionHandler(NonExistentResourceException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public Result NonExistentResource() {
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "잘못된 파라미터로 요청하셨습니다.")
+    public void NonExistentResource() {
+        // TODO 단위테스트 해보기
         log.debug("NonExistentResourceException is happened!");
-        return Result.of().setMessage("잘못된 파라미터로 요청하셨습니다.");
     }
 }

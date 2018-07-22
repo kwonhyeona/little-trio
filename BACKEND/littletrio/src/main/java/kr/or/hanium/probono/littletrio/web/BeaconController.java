@@ -4,17 +4,20 @@ import kr.or.hanium.probono.littletrio.domain.Beacon;
 import kr.or.hanium.probono.littletrio.domain.BeaconRepository;
 import kr.or.hanium.probono.littletrio.domain.Result;
 import kr.or.hanium.probono.littletrio.exception.NonExistentResourceException;
+import kr.or.hanium.probono.littletrio.service.BeaconService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
 @RequestMapping("/beacon")
 public class BeaconController {
-    @Autowired
-    private BeaconRepository beaconRepository;
+    @Resource
+    private BeaconService beaconService;
 
     @GetMapping("")
     public String show() {
@@ -23,14 +26,11 @@ public class BeaconController {
 
     @PostMapping("/new")
     public Beacon create(String deviceNumber) {
-        return beaconRepository.save(new Beacon(deviceNumber));
+        return beaconService.add(deviceNumber);
     }
 
     @PostMapping("")
     public Result register(String deviceNumber) {
-        return Result.of().addParameter("beacon", beaconRepository.findByDeviceNumber(deviceNumber)
-                .orElseThrow(NonExistentResourceException::new)
-                .setState(true))
-                .ok();
+        return beaconService.register(deviceNumber);
     }
 }
