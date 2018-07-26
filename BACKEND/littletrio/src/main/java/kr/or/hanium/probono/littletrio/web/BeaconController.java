@@ -1,11 +1,8 @@
 package kr.or.hanium.probono.littletrio.web;
 
 import kr.or.hanium.probono.littletrio.domain.Beacon;
-import kr.or.hanium.probono.littletrio.domain.BeaconRepository;
 import kr.or.hanium.probono.littletrio.domain.Result;
-import kr.or.hanium.probono.littletrio.exception.NonExistentResourceException;
 import kr.or.hanium.probono.littletrio.service.BeaconService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
