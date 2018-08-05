@@ -1,27 +1,44 @@
 package kr.or.hanium.probono.littletrio.security;
 
-import kr.or.hanium.probono.littletrio.domain.Result;
+import kr.or.hanium.probono.littletrio.error.ErrorResponse;
+import kr.or.hanium.probono.littletrio.exception.AlreadyExistentResourceException;
 import kr.or.hanium.probono.littletrio.exception.NonExistentResourceException;
 import kr.or.hanium.probono.littletrio.exception.UnAuthenticationException;
 import kr.or.hanium.probono.littletrio.exception.UnAuthorizedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 
+@Slf4j
 @RestControllerAdvice
 public class SecurityRestControllerAdvice {
-    private static final Logger log = LoggerFactory.getLogger(SecurityRestControllerAdvice.class);
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity<ErrorResponse> unAuthorized(UnAuthorizedException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse(e.getMessage()));
+    }
+
+    @ExceptionHandler(UnAuthenticationException.class)
+    public ResponseEntity<ErrorResponse> unAuthentication(UnAuthenticationException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(e.getMessage()));
+    }
 
     @ExceptionHandler(NonExistentResourceException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "잘못된 파라미터로 요청하셨습니다.")
-    public void NonExistentResource() {
-        // TODO 단위테스트 해보기
-        log.debug("NonExistentResourceException is happened!");
+    public ResponseEntity<ErrorResponse> NonExistentResource(NonExistentResourceException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
+    }
+
+    @ExceptionHandler(AlreadyExistentResourceException.class)
+    public ResponseEntity<ErrorResponse> AlreadyExistentResource(AlreadyExistentResourceException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> ConstraintViolation() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("전송한 값 중 유효하지 않은 값이 포함되어 있습니다."));
     }
 }

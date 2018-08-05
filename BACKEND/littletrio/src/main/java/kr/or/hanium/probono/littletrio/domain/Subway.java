@@ -1,42 +1,42 @@
 package kr.or.hanium.probono.littletrio.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Subway {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private Long trainNumber;
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_subway_to_subwayLine"))
-    private SubwayLine subwayLine;
+    private Subway subwayLine;
     @OneToMany(mappedBy = "subway", cascade = CascadeType.ALL)
     @OrderBy("id ASC")
-    private List<Room> rooms = new ArrayList<>();
+    private List<Room> rooms;
 
-    public Long getId() {
-        return id;
+    public Subway() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public SubwayLine getSubwayLine() {
-        return subwayLine;
-    }
-
-    public void setSubwayLine(SubwayLine subwayLine) {
-        this.subwayLine = subwayLine;
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
+    public Subway(Long trainNumber, List<Room> rooms) {
+        this.trainNumber = trainNumber;
         this.rooms = rooms;
+    }
+
+    @Override
+    public String toString() {
+        return "Subway{" +
+                "id=" + id +
+                ", trainNumber=" + trainNumber +
+                ", subwayLine=" + subwayLine +
+                ", rooms=" + rooms +
+                '}';
     }
 }

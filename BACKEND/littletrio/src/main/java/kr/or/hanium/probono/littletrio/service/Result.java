@@ -1,4 +1,4 @@
-package kr.or.hanium.probono.littletrio.domain;
+package kr.or.hanium.probono.littletrio.service;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
