@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.or.hanium.probono.little_trio.b4showing">
 
-    <!--웹뷰 인터넷 접근 허용-->
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!-- 웹뷰 인터넷 접근 허용 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name = ".network.ApplicationController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,7 +22,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".StationFind.StationFindActivity" />
-        <activity android:name=".SeatInfo.SeatInfoActivity"></activity>
+        <activity android:name=".SeatInfo.SeatInfoActivity" />
+        <activity android:name=".TestActivity"></activity>
     </application>
 
 </manifest>
