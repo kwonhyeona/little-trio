@@ -3,6 +3,7 @@ package kr.or.hanium.probono.littletrio.web;
 import kr.or.hanium.probono.littletrio.domain.Nfc;
 import kr.or.hanium.probono.littletrio.domain.NfcRepository;
 import kr.or.hanium.probono.littletrio.error.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -16,23 +17,25 @@ import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 public class ApiNfcAcceptanceTest extends AcceptanceTest {
-    private static final Logger log = LoggerFactory.getLogger(ApiNfcAcceptanceTest.class);
 
     @Autowired
     private NfcRepository nfcRepository;
     private Nfc defaultNFC;
+    private Nfc defaultNFC2;
     private Nfc wrongNFC;
 
     @Before
     public void setUp() throws Exception {
         defaultNFC = new Nfc("123451234512");
+        defaultNFC2 = new Nfc("000000000000");
         wrongNFC = new Nfc("12345");
     }
 
     @Test
     public void nfc_생성() {
-        ResponseEntity<Nfc> response = template().postForEntity("/api/nfcs", defaultNFC.getDeviceNumber(), Nfc.class);
+        ResponseEntity<Nfc> response = template().postForEntity("http://13.209.22.208:8080/api/nfcs", defaultNFC.getDeviceNumber(), Nfc.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         log.debug("nfc_등록 : {}", response.getBody());
         log.debug("nfc_등록 : {}", nfcRepository.findAll());
@@ -47,9 +50,9 @@ public class ApiNfcAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void nfc_등록() {
-        template().postForEntity("/api/nfcs", defaultNFC.getDeviceNumber(), Nfc.class);
+//        template().postForEntity("/api/nfcs", defaultNFC.getDeviceNumber(), Nfc.class);
 
-        ResponseEntity<Nfc> response = template().postForEntity("/api/nfcs/register", defaultNFC.getDeviceNumber(), Nfc.class);
+        ResponseEntity<Nfc> response = template().postForEntity("http://13.209.22.208:8080/api/nfcs/register", defaultNFC.getDeviceNumber(), Nfc.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         log.debug("nfc_등록 : {}", response.getBody());
         log.debug("nfc_등록 : {}", nfcRepository.findAll());

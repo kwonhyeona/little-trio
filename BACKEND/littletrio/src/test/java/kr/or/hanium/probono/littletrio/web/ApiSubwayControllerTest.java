@@ -2,12 +2,10 @@ package kr.or.hanium.probono.littletrio.web;
 
 import kr.or.hanium.probono.littletrio.domain.Room;
 import kr.or.hanium.probono.littletrio.domain.Subway;
-import kr.or.hanium.probono.littletrio.domain.SubwayRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import support.AcceptanceTest;
@@ -43,6 +41,13 @@ public class ApiSubwayControllerTest extends AcceptanceTest {
     @Test
     public void getSubwayByTrainNumber() {
         ResponseEntity<Subway> response = template().getForEntity("/api/subways/1", Subway.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        log.debug("getSubwayByTrainNumber : {}", response.getBody());
+    }
+
+    @Test
+    public void getRoomsByTrainNumber() {
+        ResponseEntity<Iterable> response = template().getForEntity(String.format("/api/subways/%d", subway.getTrainNumber()), Iterable.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 //        log.debug("getSubwayByTrainNumber : {}", response.getBody());
     }

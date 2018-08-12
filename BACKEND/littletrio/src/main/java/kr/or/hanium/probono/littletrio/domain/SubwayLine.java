@@ -13,39 +13,7 @@ public class SubwayLine {
     private String lineName;
     @Column
     private int roomCount;
-    @OneToMany(mappedBy = "subwayLine", cascade = CascadeType.ALL)
-    @OrderBy("id ASC")
-    private List<Subway> subways = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLineName() {
-        return lineName;
-    }
-
-    public void setLineName(String lineName) {
-        this.lineName = lineName;
-    }
-
-    public int getRoomCount() {
-        return roomCount;
-    }
-
-    public void setRoomCount(int roomCount) {
-        this.roomCount = roomCount;
-    }
-
-    public List<Subway> getSubways() {
-        return subways;
-    }
-
-    public void setSubways(List<Subway> subways) {
-        this.subways = subways;
-    }
+//    @OneToMany(mappedBy = "subwayLine", cascade = CascadeType.ALL)
+//    @OrderBy("id ASC")
+//    private List<Subway> subways = new ArrayList<>();
 }
