@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/beaconregister_edittext_BeaconNum"
-            android:hint="예) 0000-0000" />
+            android:hint="예) 00000000" />
 
     </LinearLayout>
 

@@ -1,13 +1,11 @@
 package kr.or.hanium.probono.little_trio.b4showing.StationFind;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Fragment;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -17,7 +15,6 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
@@ -64,8 +61,18 @@ public class StationFindActivity extends AppCompatActivity {
                 Station = nemaEditText.getText().toString();
                 if (Station.equals("")) {
                     Toast.makeText(getApplicationContext(), "역 이름을 입력해 주세요", Toast.LENGTH_SHORT).show();
-                } else
-                    getApi();
+                } else {
+                    webView.setVisibility(View.GONE);
+
+                    StationSelect myFragment = new StationSelect();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("station", Station);
+                    myFragment.setArguments(bundle);
+                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.stationfind_linearLayout_linearLayout, myFragment);
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -108,6 +115,7 @@ public class StationFindActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new AndroidBridge(), "android");
 
 
+        webView.invalidate();
         //meta태그의 viewport사용 가능
         webView.getSettings().setUseWideViewPort(true);
         webView.loadUrl("file:///android_asset/little-trio.html");
@@ -138,115 +146,13 @@ public class StationFindActivity extends AppCompatActivity {
             handler.post(new Runnable() {
 
                 public void run() {
+                    nemaEditText.setText(arg);
                     Toast.makeText(getApplicationContext(), " 클릭한 역은 : \n" + arg, Toast.LENGTH_SHORT).show();
                 }
 
             });
 
         }
-
     }
-
-
-    private void getApi() {
-
-        new AsyncTask<Void, Void, String>() {
-            ProgressDialog progress;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progress = new ProgressDialog(StationFindActivity.this);
-                progress.setTitle("다운로드");
-                progress.setMessage("download");
-                progress.setProgressStyle((ProgressDialog.STYLE_SPINNER));
-                progress.setCancelable(false);
-                progress.show();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                StringBuffer sb = new StringBuffer();
-                try {
-                    JSONObject json = new JSONObject(s);
-
-                    JSONArray rows = json.getJSONArray("realtimeArrivalList");
-
-                    int length = rows.length();
-                    //linear Layout params 정의
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                    for (int i = 0; i < length; i++) {
-                        JSONObject result = (JSONObject) rows.get(i);
-                        //LiearLayout 생성
-                        LinearLayout linearLayout1 = new LinearLayout(getBaseContext());
-                        linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
-
-                        //textView 생성
-                        TextView updnLine = new TextView(getBaseContext());
-                        String updn = result.getString("updnLine");
-                        String trainLineNm = result.getString("trainLineNm");
-
-                        updnLine.setText("방향 : " + trainLineNm + "(" + updn + ")");
-                        linearLayout1.addView(updnLine);
-
-                        //textView 생성
-                        TextView arviMasg2 = new TextView(getBaseContext());
-                        String trainName2 = result.getString("arvlMsg2");
-                        arviMasg2.setText(" 도착 예정 시간: " + trainName2);
-                        linearLayout1.addView(arviMasg2);
-
-                        //Button 생성
-                        final Button btn = new Button(getBaseContext());
-                        String btrainNo = result.getString("btrainNo");
-
-                        btn.setId(Integer.parseInt(btrainNo));
-                        btn.setText("선택");
-                        btn.setLayoutParams(params);
-                        final String position = btrainNo;
-                        btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Log.d("log", "position :" + position);
-
-                                Toast.makeText(getApplicationContext(), "클릭한 position:" + position, Toast.LENGTH_LONG).show();
-
-
-                            }
-                        });
-
-                        linearLayout1.addView(btn);
-
-                        linearLayout.addView(linearLayout1);
-
-
-                        //    sb.append(trainName + "\n");
-
-                    }
-
-                } catch (Exception e) {
-                }
-                //    find.setText(sb.toString());
-
-                progress.dismiss();
-            }
-
-            @Override
-            protected String doInBackground(Void... params) {
-                String result = "";
-                try {
-                    //서울시 오픈 API 제공(샘플 주소 json으로 작업)
-                    result = Remote.getData("http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/" + Station);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                return result;
-            }
-        }.execute();
-    }
-
 
 }
