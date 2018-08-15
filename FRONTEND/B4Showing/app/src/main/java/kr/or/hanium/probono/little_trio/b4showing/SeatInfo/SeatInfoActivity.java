@@ -140,12 +140,12 @@ public class SeatInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 progress.setTitle("새로고침");
                 progress.setMessage("좌석 정보를 새로고침 중 입니다.");
                 progress.setProgressStyle((ProgressDialog.STYLE_SPINNER));
                 progress.setCancelable(false);
                 progress.show();
+                seekBarRoomNum.setProgress(0);
                 getSeatInfo();
 
             }
