@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".bluetooth.BluetoothTest">
+
+    <EditText
+        android:id="@+id/receiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="receive Text"/>
+    <EditText
+        android:id="@+id/sendText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="입력해주세요"/>
+    <Button
+        android:id="@+id/onButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="p"/>
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전송"/>
+
+</LinearLayout>

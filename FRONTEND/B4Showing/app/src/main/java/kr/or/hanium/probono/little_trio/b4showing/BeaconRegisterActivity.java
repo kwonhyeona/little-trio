@@ -11,10 +11,15 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.or.hanium.probono.little_trio.b4showing.StationFind.StationFindActivity;
+import kr.or.hanium.probono.little_trio.b4showing.bluetooth.BluetoothConnection;
+import kr.or.hanium.probono.little_trio.b4showing.bluetooth.BluetoothTest;
 
 public class BeaconRegisterActivity extends AppCompatActivity {
+
     @BindView(R.id.beaconregister_button_ok)
     Button buttonOk;
+    @BindView(R.id.bluetooth)
+    Button btn_bluetooth;
     @BindView(R.id.beaconregister_edittext_BeaconNum)
     EditText editTextBeaconNum;
 
@@ -32,7 +37,15 @@ public class BeaconRegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), StationFindActivity.class);
                 startActivity(intent);
-                finish();
+               finish();
+            }
+        });
+
+        btn_bluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BluetoothTest.class);
+                startActivity(intent);
             }
         });
     }
