@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Entity
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 public class Subway {
     @Id
@@ -30,6 +29,10 @@ public class Subway {
 
     @OneToMany(mappedBy = "subway", cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
+
+    public Subway() {
+        System.out.println("subway default constructor");
+    }
 
     public Subway(String trainNumber) {
         this.trainNumber = trainNumber;

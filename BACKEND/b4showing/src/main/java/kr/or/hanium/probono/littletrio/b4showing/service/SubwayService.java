@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -27,8 +24,6 @@ public class SubwayService {
     @Autowired
     private RoomRepository roomRepository;
 
-
-
     @Transactional
     public Subway create(Subway subway) {
         return subwayRepository.save(subway);
@@ -40,7 +35,7 @@ public class SubwayService {
 
     private Subway findByTrainNumber(String trainNumber) {
         return subwayRepository.findByTrainNumber(trainNumber)
-                .orElse(createSubwayAndRooms(trainNumber));
+                .orElseGet(() -> createSubwayAndRooms(trainNumber));
     }
 
     @Transactional
