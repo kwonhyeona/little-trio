@@ -21,6 +21,6 @@ public class NfcService {
     public Nfc register(Nfc nfc) {
         return nfcRepository.findByDeviceNumber(nfc.getDeviceNumber())
                 .orElseThrow(() -> new NonExistentResourceException("해당 기기번호로 등록된 NFC가 존재하지 않습니다."))
-                .setStateTrue(true);
+                .setStateTrue(1);
     }
 }

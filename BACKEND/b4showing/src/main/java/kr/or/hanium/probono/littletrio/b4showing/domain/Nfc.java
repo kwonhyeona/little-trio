@@ -25,8 +25,8 @@ public class Nfc {
     @Size(min = 12, max = 12)
     private String deviceNumber;
     @Column(nullable = false)
-    @ColumnDefault("false")
-    private boolean state;
+    @ColumnDefault("0")
+    private int state;
 
     public Nfc(String deviceNumber) {
         log.debug("Nfc constructor : {}", deviceNumber);
@@ -38,8 +38,8 @@ public class Nfc {
         this.deviceNumber = deviceNumber;
     }
 
-    public Nfc setStateTrue(boolean state) {
-        if(this.state) throw new AlreadyExistentResourceException("이미 등록된 NFC 기기입니다.");
+    public Nfc setStateTrue(int state) {
+        if(this.state == 1) throw new AlreadyExistentResourceException("이미 등록된 NFC 기기입니다.");
         this.state = state;
         return this;
     }
