@@ -98,7 +98,7 @@ public class StationFindActivity extends AppCompatActivity {
         //HTML을 파싱하여 웹뷰에서 보여주거나 하는 작업에서
         //width , height 가 화면 크기와 맞지 않는 현상이 발생한다
         //이를 잡아주기 위한 코드
-        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        //webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         //캐시파일 사용 금지(운영중엔 주석처리 할 것)
         //webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -115,9 +115,9 @@ public class StationFindActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new AndroidBridge(), "android");
 
 
-        webView.invalidate();
+     //   webView.invalidate();
         //meta태그의 viewport사용 가능
-        webView.getSettings().setUseWideViewPort(true);
+      //  webView.getSettings().setUseWideViewPort(true);
         webView.loadUrl("file:///android_asset/little-trio.html");
         webView.setWebViewClient(new WishWebViewClient());
 
@@ -153,6 +153,10 @@ public class StationFindActivity extends AppCompatActivity {
             });
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 }

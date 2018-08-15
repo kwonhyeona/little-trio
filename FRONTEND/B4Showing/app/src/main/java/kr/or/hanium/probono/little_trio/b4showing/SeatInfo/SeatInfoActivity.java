@@ -2,8 +2,11 @@ package kr.or.hanium.probono.little_trio.b4showing.SeatInfo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,6 +18,15 @@ public class SeatInfoActivity extends AppCompatActivity {
     SeekBar seekBarRoomNum;
     @BindView(R.id.seatinfo_textview_number)
     TextView textViewNumber;
+    @BindView(R.id.seatinfo_first_button)
+    Button buttonFirst;
+    @BindView(R.id.seatinfo_second_button)
+    Button buttonSecond;
+    @BindView(R.id.seatinfo_third_button)
+    Button buttonthird;
+    @BindView(R.id.seatinfo_fourth_button)
+    Button buttonFourth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +44,9 @@ public class SeatInfoActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
-                textViewNumber.setText(String.valueOf(progress));
+                textViewNumber.setText(String.valueOf(progress + 1));
             }
         });
-
-
     }
+
 }

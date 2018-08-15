@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:max="10"
+                android:max="9"
                 android:min="1"
                 android:progress="1"
                 android:thumb="@drawable/train" />
@@ -72,6 +72,7 @@
                 <TableRow>
 
                     <Button
+                        android:id="@+id/seatinfo_first_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#F44336"
@@ -86,6 +87,7 @@
                         android:textColor="#FFFFFF" />
 
                     <Button
+                        android:id="@+id/seatinfo_second_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#1DDB16"
@@ -178,6 +180,7 @@
                 <TableRow>
 
                     <Button
+                        android:id="@+id/seatinfo_third_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#F44336"
@@ -192,6 +195,7 @@
                         android:textColor="#FFFFFF" />
 
                     <Button
+                        android:id="@+id/seatinfo_fourth_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#F44336"

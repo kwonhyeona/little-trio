@@ -27,7 +27,7 @@ import kr.or.hanium.probono.little_trio.b4showing.R;
 
 public class StationSelect extends Fragment {
     LinearLayout linearLayout;
-    String Station = "금정";
+    String Station = "";
 
     public StationSelect() {
         super();
@@ -44,7 +44,6 @@ public class StationSelect extends Fragment {
     }
 
     private void getApi() {
-
         new AsyncTask<Void, Void, String>() {
             ProgressDialog progress;
 
@@ -61,12 +60,9 @@ public class StationSelect extends Fragment {
 
             @Override
             protected void onPostExecute(String s) {
-
                 super.onPostExecute(s);
-                StringBuffer sb = new StringBuffer();
                 try {
                     JSONObject json = new JSONObject(s);
-
                     JSONArray rows = json.getJSONArray("realtimeArrivalList");
 
                     int length = rows.length();
@@ -83,13 +79,12 @@ public class StationSelect extends Fragment {
                         linearLayout1.setOrientation(LinearLayout.VERTICAL);
                         linearLayout1.setGravity(Gravity.CENTER);
 
-                        //textView 생성
                         TextView updnLine = new TextView(getContext());
                         String updn = result.getString("updnLine");
                         String trainLineNm = result.getString("trainLineNm");
                         String subwayId = result.getString("subwayId");
                         String subwayname = "";
-                        int color;
+
                         switch (subwayId) {
                             case "1001":
                                 subwayname = "1호선";
@@ -142,9 +137,7 @@ public class StationSelect extends Fragment {
                                 break;
 
                         }
-
                         updnLine.setText(subwayname + " " + trainLineNm + "(" + updn + ")");
-
                         linearLayout1.addView(updnLine);
 
                         //textView 생성
@@ -172,20 +165,12 @@ public class StationSelect extends Fragment {
 
                             }
                         });
-
                         linearLayout2.addView(btn);
-
                         linearLayout.addView(linearLayout2);
-
-
-                        //    sb.append(trainName + "\n");
-
                     }
 
                 } catch (Exception e) {
                 }
-                //    find.setText(sb.toString());
-
                 progress.dismiss();
             }
 
@@ -193,13 +178,10 @@ public class StationSelect extends Fragment {
             protected String doInBackground(Void... params) {
                 String result = "";
                 try {
-                    //서울시 오픈 API 제공(샘플 주소 json으로 작업)
-                    result = Remote.getData("http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/" + Station);
-
+                    result = Remote.getData(R.string.subwayKey + Station);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 return result;
             }
         }.execute();
