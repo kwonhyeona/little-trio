@@ -23,7 +23,7 @@
                 android:id="@+id/seatinfo_textview_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="1"
                 android:textSize="25sp" />
 
 
@@ -32,6 +32,12 @@
                 android:layout_height="wrap_content"
                 android:text="번째 칸 입니다"
                 android:textSize="25sp" />
+            <Button
+                android:id="@+id/seatinfo_refresh_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/refresh"/>
         </LinearLayout>
 
         <LinearLayout

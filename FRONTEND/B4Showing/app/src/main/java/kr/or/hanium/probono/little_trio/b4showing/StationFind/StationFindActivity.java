@@ -44,8 +44,6 @@ public class StationFindActivity extends AppCompatActivity {
     private final long FINISH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
 
-    //    @BindView(R.id.find)
-//    TextView find;
     @BindView(R.id.stationfind_linearLayout_linearLayout)
     LinearLayout linearLayout;
 

@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import kr.or.hanium.probono.little_trio.b4showing.R;
 import kr.or.hanium.probono.little_trio.b4showing.model.response.subwayinfo;
@@ -77,6 +78,7 @@ public class StationSelect extends Fragment {
                         Toast.makeText(getActivity().getApplicationContext(), "서울시 서버에서 데이터 조회를 실패했습니다.", Toast.LENGTH_LONG).show();
                     } else {
                         ArrayList<subwayinfo> subwayinfos = new ArrayList<>();
+                        HashSet<String> subwayset;
                         int length = rows.length();
 
                         //linear Layout params 정의
@@ -182,6 +184,15 @@ public class StationSelect extends Fragment {
                             subwayinfo info = new subwayinfo(subwayname, trainLineNm, updn, orderkey, arriveTime, btrainNo);
                             subwayinfos.add(info);
                         }
+
+                        LinearLayout linearLayout3 = new LinearLayout(getContext());
+                        linearLayout3.setOrientation(LinearLayout.HORIZONTAL);
+                        TextView test = new TextView(getContext());
+                        test.setText("TEST");
+                        linearLayout3.addView(test);
+                        linearLayout.addView(linearLayout3);
+
+
                     }
 
                 } catch (Exception e) {

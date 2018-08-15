@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by LG on 2018-07-06.
@@ -14,8 +16,6 @@ import retrofit2.http.POST;
 public interface NetworkService {
     @POST("nfcs/register")
     Call<Void> getNfcRegisterResult(@Body String deviceNumber);
-
-    @GET("subways/seat")
-    Call<SeatInfoResult> getSeatInfoResult(@Body String trainNumber);
-
+    @GET("subways/{trainNumber}")
+    Call<SeatInfoResult> getSeatInfoResult(@Path("trainNumber") String trainNumber );
 }

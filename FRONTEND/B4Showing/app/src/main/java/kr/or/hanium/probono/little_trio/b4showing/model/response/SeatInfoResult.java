@@ -8,18 +8,37 @@ import java.util.ArrayList;
 
 public class SeatInfoResult {
 
-    private ArrayList<String[]> seatinfo;
+    private long id;
+    private String trainNumber;
+    private ArrayList<room> rooms;
 
-    public ArrayList<String[]> getSeatinfo() {
-        return seatinfo;
+    public SeatInfoResult(long id, String trainNumber, ArrayList<room> rooms) {
+        this.id = id;
+        this.trainNumber = trainNumber;
+        this.rooms = rooms;
     }
 
-    public void setSeatinfo(ArrayList<String[]> seatinfo) {
-        this.seatinfo = seatinfo;
+    public long getId() {
+        return id;
     }
 
-    public SeatInfoResult(ArrayList<String[]> seatinfo) {
+    public void setId(long id) {
+        this.id = id;
+    }
 
-        this.seatinfo = seatinfo;
+    public String getTrainNumber() {
+        return trainNumber;
+    }
+
+    public void setTrainNumber(String trainNumber) {
+        this.trainNumber = trainNumber;
+    }
+
+    public ArrayList<room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(ArrayList<room> rooms) {
+        this.rooms = rooms;
     }
 }
