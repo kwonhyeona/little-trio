@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class Subway {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @Length(min = 4, max = 4)
-    private Long trainNumber;
+    @Size(min = 4, max = 4)
+    private String trainNumber;
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_subway_to_subwayLine"))
     private SubwayLine subwayLine;
@@ -28,7 +29,7 @@ public class Subway {
     @JsonIgnore
     private List<Room> rooms = new ArrayList<>();
 
-    public Subway(Long trainNumber, List<Room> rooms) {
+    public Subway(String trainNumber, List<Room> rooms) {
         this.trainNumber = trainNumber;
         this.rooms = rooms;
     }

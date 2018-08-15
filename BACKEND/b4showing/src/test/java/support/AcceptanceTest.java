@@ -30,7 +30,7 @@ public abstract class AcceptanceTest {
         return template;
     }
 
-    protected Subway findByTrainNumber(Long trainNumber) {
+    protected Subway findByTrainNumber(String trainNumber) {
         return subwayRepository.findByTrainNumber(trainNumber)
                 .orElseThrow(() -> new NonExistentResourceException("일치하는 열차가 없습니다."));
     }

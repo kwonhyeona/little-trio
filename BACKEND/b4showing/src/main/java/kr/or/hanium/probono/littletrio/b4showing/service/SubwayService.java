@@ -16,7 +16,7 @@ public class SubwayService {
     @Autowired
     private SubwayRepository subwayRepository;
 
-    public Subway get(Long trainNumber) {
+    public Subway get(String trainNumber) {
         return findByTrainNumber(trainNumber);
     }
 
@@ -24,14 +24,14 @@ public class SubwayService {
         return subwayRepository.save(subway);
     }
 
-    public List<String> getRooms(Long trainNumber) {
+    public List<String> getRooms(String trainNumber) {
         log.debug("SubwayService getRooms : {}", findByTrainNumber(trainNumber));
         return findByTrainNumber(trainNumber).getRooms()
                 .stream().map(room -> room.getSeatInfo())
                 .collect(Collectors.toList());
     }
 
-    private Subway findByTrainNumber(Long trainNumber) {
+    private Subway findByTrainNumber(String trainNumber) {
         return subwayRepository.findByTrainNumber(trainNumber)
                 .orElseThrow(() -> new NonExistentResourceException("해당 번호와 일치하는 열차가 없습니다."));
     }

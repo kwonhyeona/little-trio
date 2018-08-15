@@ -30,7 +30,7 @@ public class SubwayController {
 //    }
 
     @GetMapping("/{trainNumber}")
-    public ResponseEntity<Iterable<String>> getRoomsByTrainNumber(@PathVariable Long trainNumber) {
+    public ResponseEntity<Iterable<String>> getRoomsByTrainNumber(@PathVariable String trainNumber) {
 //        log.debug("SubwayController : {}", trainNumber);
         return ResponseEntity.status(HttpStatus.OK).body(subwayService.getRooms(trainNumber));
     }

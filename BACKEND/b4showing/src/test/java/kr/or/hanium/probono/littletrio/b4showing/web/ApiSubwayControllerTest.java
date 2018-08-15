@@ -21,7 +21,7 @@ public class ApiSubwayControllerTest extends AcceptanceTest {
 
     @Before
     public void setUp() throws Exception {
-        subway = new Subway(2000L, Arrays.asList(
+        subway = new Subway("2000", Arrays.asList(
                 new Room("0000"),
                 new Room("1000"),
                 new Room("1010"),
@@ -35,20 +35,13 @@ public class ApiSubwayControllerTest extends AcceptanceTest {
         log.debug("Test create : {}", subway);
         ResponseEntity<Subway> response = template().postForEntity("/api/subways", subway, Subway.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-//        log.debug("getSubwayByTrainNumber : {}", response.getBody());
-    }
-
-    @Test
-    public void getSubwayByTrainNumber() {
-        ResponseEntity<Subway> response = template().getForEntity("/api/subways/1", Subway.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        log.debug("getSubwayByTrainNumber : {}", response.getBody());
+        log.debug("getSubwayByTrainNumber : {}", response.getBody());
     }
 
     @Test
     public void getRoomsByTrainNumber() {
-        ResponseEntity<Iterable> response = template().getForEntity(String.format("/api/subways/%d", subway.getTrainNumber()), Iterable.class);
+        ResponseEntity<Iterable> response = template().getForEntity(String.format("/api/subways/%s", subway.getTrainNumber()), Iterable.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        log.debug("getSubwayByTrainNumber : {}", response.getBody());
+        log.debug("getSubwayByTrainNumber : {}", response.getBody());
     }
 }
