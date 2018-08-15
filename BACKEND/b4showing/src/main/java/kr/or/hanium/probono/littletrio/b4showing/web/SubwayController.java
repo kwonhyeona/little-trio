@@ -23,14 +23,8 @@ public class SubwayController {
         return ResponseEntity.status(HttpStatus.CREATED).body(subwayService.create(subway));
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Subway> getSubwayByTrainNumber(@PathVariable Long trainNumber) {
-//        log.debug("SubwayController : {}", trainNumber);
-//        return ResponseEntity.status(HttpStatus.OK).body(subwayService.get(trainNumber));
-//    }
-
     @GetMapping("/{trainNumber}")
-    public ResponseEntity<Iterable<String>> getRoomsByTrainNumber(@PathVariable String trainNumber) {
+    public ResponseEntity<Subway> getRoomsByTrainNumber(@PathVariable String trainNumber) {
 //        log.debug("SubwayController : {}", trainNumber);
         return ResponseEntity.status(HttpStatus.OK).body(subwayService.getRooms(trainNumber));
     }

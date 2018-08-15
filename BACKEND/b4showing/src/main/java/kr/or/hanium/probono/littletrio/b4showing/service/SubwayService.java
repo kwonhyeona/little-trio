@@ -6,6 +6,7 @@ import kr.or.hanium.probono.littletrio.b4showing.exception.NonExistentResourceEx
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,15 +21,14 @@ public class SubwayService {
         return findByTrainNumber(trainNumber);
     }
 
+    @Transactional
     public Subway create(Subway subway) {
         return subwayRepository.save(subway);
     }
 
-    public List<String> getRooms(String trainNumber) {
+    public Subway getRooms(String trainNumber) {
         log.debug("SubwayService getRooms : {}", findByTrainNumber(trainNumber));
-        return findByTrainNumber(trainNumber).getRooms()
-                .stream().map(room -> room.getSeatInfo())
-                .collect(Collectors.toList());
+        return findByTrainNumber(trainNumber);
     }
 
     private Subway findByTrainNumber(String trainNumber) {

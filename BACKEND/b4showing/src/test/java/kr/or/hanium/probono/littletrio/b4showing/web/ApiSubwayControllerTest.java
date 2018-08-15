@@ -40,7 +40,7 @@ public class ApiSubwayControllerTest extends AcceptanceTest {
 
     @Test
     public void getRoomsByTrainNumber() {
-        ResponseEntity<Iterable> response = template().getForEntity(String.format("/api/subways/%s", subway.getTrainNumber()), Iterable.class);
+        ResponseEntity<Subway> response = template().getForEntity(String.format("/api/subways/%s", subway.getTrainNumber()), Subway.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         log.debug("getSubwayByTrainNumber : {}", response.getBody());
     }

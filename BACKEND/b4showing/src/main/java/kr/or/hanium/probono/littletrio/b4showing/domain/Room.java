@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@ToString
+@ToString(exclude = "subway")
 @NoArgsConstructor
 public class Room {
     @Id
@@ -31,4 +31,6 @@ public class Room {
     public Room(String seatInfo) {
         this.seatInfo = seatInfo;
     }
+
+
 }
