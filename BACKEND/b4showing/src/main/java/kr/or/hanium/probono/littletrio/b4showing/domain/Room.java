@@ -1,7 +1,6 @@
 package kr.or.hanium.probono.littletrio.b4showing.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
