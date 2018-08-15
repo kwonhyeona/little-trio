@@ -3,6 +3,7 @@ package kr.or.hanium.probono.little_trio.b4showing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,8 +29,7 @@ public class BeaconRegisterActivity extends AppCompatActivity {
     Button buttonOk;
     @BindView(R.id.beaconregister_edittext_BeaconNum)
     EditText editTextBeaconNum;
-    @BindView(R.id.beaconregister_button_test)
-    Button buttonTest;
+
     private NetworkService service;
     private final String TAG = "RegisterActivity";
 
@@ -38,8 +38,14 @@ public class BeaconRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_register);
         ButterKnife.bind(this);
-
         service = ApplicationController.getInstance().getNetworkService();
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        String check = pref.getString("checkNumber", "NO");
+        if (check.equals("OK")) {
+            Intent intent = new Intent(getApplicationContext(), StationFindActivity.class);
+            startActivity(intent);
+            finish();
+        }
         clickEvent();
     }
 
@@ -52,54 +58,36 @@ public class BeaconRegisterActivity extends AppCompatActivity {
                 if (Number.equals("")) {
                     Toast.makeText(getApplicationContext(), "번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), StationFindActivity.class);
-                    startActivity(intent);
-                    finish();
+                    Call<Void> getNfcRegisterResult = service.getNfcRegisterResult(Number);
+                    getNfcRegisterResult.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            Log.d(TAG, "fail");
+                            Log.d(TAG, "Success");
+                            int code = response.code();
+                            switch (code) {
+                                case 200:
+                                    Toast.makeText(getApplicationContext(), "정상적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), StationFindActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("checkNumber", "OK");
+                                    editor.commit();
+                                case 400:
+                                    Toast.makeText(getApplicationContext(), "번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-//                    Call<BaseResult> getNfcRegisterResult = service.getNfcRegisterResult(Number);
-//                    Log.d(TAG, Number);
-//                    Log.d(TAG, "Call");
-//                    getNfcRegisterResult.enqueue(new Callback<BaseResult>() {
-//
-//                        @Override
-//                        public void onResponse(Call<BaseResult> call, Response<BaseResult> response) {
-//                            Log.d(TAG, "fail");
-//                            if (response.isSuccessful()) {
-//                                Log.d(TAG, "Success");
-//                                int code = response.code();
-//                                switch (code) {
-//                                    case 200:
-//                                        Toast.makeText(getApplicationContext(), "정상적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
-//                                        Intent intent = new Intent(getApplicationContext(), StationFindActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
-//                                    case 400:
-//                                        Toast.makeText(getApplicationContext(), "번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
-//                                }
-//
-//                            } else {
-//                                Log.d(TAG, "실패");
-//                            }
-//
-//                        }
-//
-//
-//                        @Override
-//                        public void onFailure(Call<BaseResult> call, Throwable t) {
-//                            System.out.println("zz");
-//                        }
-//                    });
-//
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            System.out.println("zz");
+                        }
+                    });
                 }
             }
         });
-        buttonTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 }

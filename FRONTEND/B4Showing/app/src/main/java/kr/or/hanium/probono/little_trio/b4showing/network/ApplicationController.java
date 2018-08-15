@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApplicationController extends Application {
     private static ApplicationController instance;
-    private static String baseUrl = "http://13.209.22.208:8080/";
+    private static String baseUrl = "http://ec2-54-180-26-215.ap-northeast-2.compute.amazonaws.com:8080/api/";
 
 
     private static volatile Activity currentActivity = null;

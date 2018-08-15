@@ -1,8 +1,10 @@
 package kr.or.hanium.probono.little_trio.b4showing.network;
 
 import kr.or.hanium.probono.little_trio.b4showing.model.response.BaseResult;
+import kr.or.hanium.probono.little_trio.b4showing.model.response.SeatInfoResult;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -10,7 +12,10 @@ import retrofit2.http.POST;
  */
 
 public interface NetworkService {
-    @POST("/api/nfcs/register")
-    Call<BaseResult> getNfcRegisterResult(@Body String deviceNumber);
-    
+    @POST("nfcs/register")
+    Call<Void> getNfcRegisterResult(@Body String deviceNumber);
+
+    @GET("subways/seat")
+    Call<SeatInfoResult> getSeatInfoResult(@Body String trainNumber);
+
 }

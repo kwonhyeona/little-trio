@@ -4,5 +4,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name ="subwayKey">http://swopenapi.seoul.go.kr/api/subway/5a495276667261623532506171716e/xml/realtimeStationArrival/0/30/</string>
+    <string name="subwayKey">5a495276667261623532506171716e</string>
 </resources>

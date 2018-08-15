@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -41,6 +40,10 @@ public class StationFindActivity extends AppCompatActivity {
     Button nameButton;
     @BindView(R.id.stationfind_edittext_name)
     EditText nemaEditText;
+
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
     //    @BindView(R.id.find)
 //    TextView find;
     @BindView(R.id.stationfind_linearLayout_linearLayout)
@@ -115,9 +118,9 @@ public class StationFindActivity extends AppCompatActivity {
         webView.addJavascriptInterface(new AndroidBridge(), "android");
 
 
-     //   webView.invalidate();
+        //   webView.invalidate();
         //meta태그의 viewport사용 가능
-      //  webView.getSettings().setUseWideViewPort(true);
+        //  webView.getSettings().setUseWideViewPort(true);
         webView.loadUrl("file:///android_asset/little-trio.html");
         webView.setWebViewClient(new WishWebViewClient());
 
@@ -147,16 +150,27 @@ public class StationFindActivity extends AppCompatActivity {
 
                 public void run() {
                     nemaEditText.setText(arg);
-                    Toast.makeText(getApplicationContext(), " 클릭한 역은 : \n" + arg, Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(getApplicationContext(), " 클릭한 역은 : \n" + arg, Toast.LENGTH_SHORT).show();
                 }
 
             });
 
         }
     }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+            super.onBackPressed();
+
+        } else {
+            this.backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "뒤로 가기 키를 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

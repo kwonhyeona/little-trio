@@ -23,7 +23,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".StationFind.StationFindActivity" />
         <activity android:name=".SeatInfo.SeatInfoActivity" />
-        <activity android:name=".TestActivity" />
     </application>
 
 </manifest>
