@@ -1,5 +1,7 @@
 package kr.or.hanium.probono.littletrio.b4showing.service;
 
+import kr.or.hanium.probono.littletrio.b4showing.domain.Room;
+import kr.or.hanium.probono.littletrio.b4showing.domain.RoomRepository;
 import kr.or.hanium.probono.littletrio.b4showing.domain.Subway;
 import kr.or.hanium.probono.littletrio.b4showing.domain.SubwayRepository;
 import kr.or.hanium.probono.littletrio.b4showing.exception.NonExistentResourceException;
@@ -8,7 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -17,9 +24,10 @@ public class SubwayService {
     @Autowired
     private SubwayRepository subwayRepository;
 
-    public Subway get(String trainNumber) {
-        return findByTrainNumber(trainNumber);
-    }
+    @Autowired
+    private RoomRepository roomRepository;
+
+
 
     @Transactional
     public Subway create(Subway subway) {
@@ -27,12 +35,23 @@ public class SubwayService {
     }
 
     public Subway getRooms(String trainNumber) {
-        log.debug("SubwayService getRooms : {}", findByTrainNumber(trainNumber));
         return findByTrainNumber(trainNumber);
     }
 
     private Subway findByTrainNumber(String trainNumber) {
         return subwayRepository.findByTrainNumber(trainNumber)
-                .orElseThrow(() -> new NonExistentResourceException("해당 번호와 일치하는 열차가 없습니다."));
+                .orElse(createSubwayAndRooms(trainNumber));
+    }
+
+    @Transactional
+    Subway createSubwayAndRooms(String trainNumber) {
+        List<Room> rooms = new ArrayList<>();
+        Subway subway = subwayRepository.save(new Subway(trainNumber));
+        for (int i = 0; i < 10; i++) {
+            rooms.add(roomRepository.save(new Room(subway, i + 1, "0000")));
+        }
+
+        subway.setRooms(rooms);
+        return subway;
     }
 }

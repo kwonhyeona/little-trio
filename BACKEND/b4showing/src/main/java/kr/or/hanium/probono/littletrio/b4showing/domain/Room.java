@@ -32,5 +32,9 @@ public class Room {
         this.seatInfo = seatInfo;
     }
 
-
+    public Room(Subway subway, int number, String seatInfo) {
+        this.subway = subway;
+        this.number = number;
+        this.seatInfo = seatInfo;
+    }
 }

@@ -31,8 +31,16 @@ public class Subway {
     @OneToMany(mappedBy = "subway", cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
 
+    public Subway(String trainNumber) {
+        this.trainNumber = trainNumber;
+    }
+
     public Subway(String trainNumber, List<Room> rooms) {
         this.trainNumber = trainNumber;
+        this.rooms = rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 }

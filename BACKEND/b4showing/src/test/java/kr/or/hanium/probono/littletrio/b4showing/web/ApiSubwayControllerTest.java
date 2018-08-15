@@ -39,8 +39,15 @@ public class ApiSubwayControllerTest extends AcceptanceTest {
     }
 
     @Test
-    public void getRoomsByTrainNumber() {
+    public void getRoomsByTrainNumber_저장되어있는_열차번호() {
         ResponseEntity<Subway> response = template().getForEntity(String.format("/api/subways/%s", subway.getTrainNumber()), Subway.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        log.debug("getSubwayByTrainNumber : {}", response.getBody());
+    }
+
+    @Test
+    public void getRoomsByTrainNumber_저장되어있지않은_열차번호() {
+        ResponseEntity<Subway> response = template().getForEntity("/api/subways/8000", Subway.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         log.debug("getSubwayByTrainNumber : {}", response.getBody());
     }

@@ -25,7 +25,7 @@ public class SubwayController {
 
     @GetMapping("/{trainNumber}")
     public ResponseEntity<Subway> getRoomsByTrainNumber(@PathVariable String trainNumber) {
-//        log.debug("SubwayController : {}", trainNumber);
+        log.debug("SubwayController : {}", trainNumber);
         return ResponseEntity.status(HttpStatus.OK).body(subwayService.getRooms(trainNumber));
     }
 }
